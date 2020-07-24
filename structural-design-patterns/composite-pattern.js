@@ -20,4 +20,11 @@ class Component{
     getChildByIndex(index){}
 
     noOfChildren(){}
+
+    static logTreeStructure(root){
+        let treeStructure = '';
+        function traverse(node , indent = 0){
+            treeStructure += `$`
+        }
+    }
 }
