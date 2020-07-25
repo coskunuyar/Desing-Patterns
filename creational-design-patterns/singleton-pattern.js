@@ -1,25 +1,27 @@
-class Database{
+class Mongoose{
     constructor(data){
-        if(Database.exists){
-            return Database.instance;
+        if(Mongoose.exists){
+            return Mongoose.instance;
+        }else{
+            this._data = data;
+            Mongoose.exists = true;
+            Mongoose.instance = this;
+            return Mongoose.instance;
         }
-        this._data = data;
-        Database.instance = this;
-        Database.exists = true;
-        return this;
     }
-
+    
     getData(){
         return this._data;
     }
 
     setData(data){
         this._data = data;
+        return this._data;
     }
 }
 
-const users = new Database(['user1','user2','user3']);
-console.log(users);
+const dataBase = new Mongoose(["user 1","user 2","user 3"]);
+const dataBase2 = new Mongoose(["userlesss"]);
 
-const newUserList = new Database(['userx','usery','userz']);
-console.log(newUserList);
+console.log(dataBase.getData());
+console.log(dataBase2.getData());

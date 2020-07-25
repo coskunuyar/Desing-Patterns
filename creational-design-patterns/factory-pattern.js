@@ -1,44 +1,33 @@
-class VehicleFactory{
+class Factory{
     constructor(){
         this.createVehicle = function(type){
-            let vehicle = {};
-            if(type === "car"){
-                vehicle = new Car();
-            }else if(type === "bus"){
-                vehicle = new Bus();
-            }
-            vehicle.drive = function(){
-                console.log(`Driving ${vehicle.type}`);
-            };
-            return vehicle;
-        }.bind(this);
+            if(type === "car") return new Car();
+            if(type === "truck") return new Truck();
+        }
     }
 }
 
 class Car{
     constructor(){
         this.type = "car";
-        this.cleanSeats = function(){
-            console.log("Cleaning seats.");
+        this.travel = function(destionation){
+            return `Traveling to ${destionation}`;
         }
     }
 }
 
-class Bus{
+class Truck{
     constructor(){
-        this.type = "bus";
-        this.serveCustomers = function(){
-            console.log("Serving Customers.")
+        this.type = "truck";
+        this.transport = function(goods){
+            return `Transporting ${goods}`;
         }
     }
 }
 
-let factory = new VehicleFactory();
+const factory = new Factory();
 
-let bmw = factory.createVehicle("car");
-bmw.drive();
-bmw.cleanSeats();
+let car = factory.createVehicle("car");
+let truck = factory.createVehicle("truck");
 
-let biky = factory.createVehicle("bus");
-biky.drive();
-biky.serveCustomers();
+console.log(car.travel("Istanbul"),truck.transport("Gold"));

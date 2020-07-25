@@ -1,21 +1,15 @@
-const car = {
-    name:"",
-    start: function(){
-        console.log(`${this.name} starts working!`);
-    },
-    stop: function(){
-        console.log(`${this.name} stops working!`);
+const game = {
+    description: function(){
+        return `Name:${this.name} , 
+                Owner: ${this.owner} , 
+                CreationDate: ${this.creationDate}`;
     }
-}
+};
 
-const bmw = Object.create(car, { 
-    name: {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: "bmw"
-        }
+let airStrike3 = Object.create(game, {
+    name: { value: "Air Strike 3"}, 
+    owner: {value: "Coskun Uyar"},
+    creationDate: {value: Date.now()}
 });
 
-bmw.start();
-bmw.stop();
+console.log(airStrike3.description());
