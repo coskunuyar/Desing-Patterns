@@ -1,48 +1,71 @@
-class OldCalculator{
-    constructor(){
-        this.operations = function(term1, term2,operation){
-            if(operation === "add"){
-                return term1 + term2;
-            }else if(operation === "sub"){
-                return term1 - term2;
-            }else{
-                return NaN;
+class OldManupulator{
+    constructor(data){
+        this._data = data;
+    }
+
+    operator(type,index){
+        if(type === "delete"){
+            this._data = this._data.filter(item => item.index !== index);
+        }else if(type === "update"){
+            this._data.forEach(item => {
+                if(item.index === index){
+                    item.isUpdated = true;                
+                }
+            });
+        }
+    }
+}
+
+class NewManupulator{
+    constructor(data){
+        this._data = data;
+    }
+
+    delete(index){
+        this._data = this._data.filter(item => item.index !== index);
+    }
+
+    update(index){
+        this._data.forEach(item => {
+            if(item.index === index){
+                item.isUpdated = true;                
             }
-        }
+        });
     }
 }
 
-class NewCalculator{
-    constructor(){
-        this.add = function(term1,term2){
-            return term1 + term2;
+const initialData = [
+    {index: 0 , isUpdated: false},
+    {index: 1 , isUpdated: false}
+];
+
+let oldM = new OldManupulator(initialData);
+oldM.operator("delete",0);
+oldM.operator("update",1);
+console.log(oldM._data);
+
+let newM = new NewManupulator(initialData);
+newM.delete(0);
+newM.update(1);
+console.log(newM._data);
+
+class AdaptorManupulator{
+    constructor(data){
+        this._data = data;
+    }
+
+    operator(type,index){
+        let newOperator = new NewManupulator(this._data);
+        if(type === "delete"){
+            newOperator.delete(index);
+        }else if(type === "update"){
+            newOperator.update(index);
         }
-        this.sub = function(term1,term2){
-            return term1 - term2;
-        }
+        this._data = newOperator._data;
     }
 }
 
-class CalcAdapter{
-    constructor(){
-        this.operations = function(term1,term2,operation){
-            let localCalc = new NewCalculator();
-            if(operation === "add"){
-                return localCalc.add(term1,term2);
-            }else if(operation === "sub"){
-                return localCalc.sub(term1,term2);
-            }else{
-                return NaN;
-            }
-        }
-    }
-}
-
-const oldCalc = new OldCalculator();
-console.log(oldCalc.operations(10, 5, 'add'));
-
-const newCalc = new NewCalculator();
-console.log(newCalc.add(10, 5));
-
-const adaptedCalc = new CalcAdapter();
-console.log(adaptedCalc.operations(10, 5, 'add'));
+let adopterM = new AdaptorManupulator(initialData);
+adopterM.operator("delete",0);
+adopterM.operator("update",1);
+console.log(adopterM._data);

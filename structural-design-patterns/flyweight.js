@@ -1,11 +1,11 @@
-class IceCream{
+class Icecream {
     constructor(flavour,price){
         this.flavour = flavour;
         this.price = price;
     }
 }
 
-class IceCreamFactory{
+class IcecreamFactory{
     constructor(){
         this._icecreams = [];
     }
@@ -14,21 +14,21 @@ class IceCreamFactory{
         let icecream = this.getIcecream(flavour);
         if(icecream){
             return icecream;
-        }else{
-            const newIcecream = new IceCream(flavour,price);
+        } else {
+            const newIcecream = new Icecream(flavour,price);
             this._icecreams.push(newIcecream);
             return newIcecream;
         }
     }
-
+    
     getIcecream(flavour){
         return this._icecreams.find(icecream => icecream.flavour === flavour);
     }
 }
 
-const factory = new IceCreamFactory();
+const factory = new IcecreamFactory();
 
-const chocoVanilla = factory.createIcecream('chocolate and vanilla',15);
-const vanillaChoco = factory.createIcecream('chocolate and vanilla',15);
+const chocoVanilla = factory.createIcecream('chocolate and vanilla', 15);
+const vanillaChoco = factory.createIcecream('chocolate and vanilla', 15);
 
 console.log(chocoVanilla === vanillaChoco);

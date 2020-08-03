@@ -1,37 +1,34 @@
-class Book{
-    constructor(title,author,price){
-        this._title = title;
-        this._author = author;
-        this.price = price;
+class Car{
+    constructor(name,price){
+        this.description = {
+            name,
+            price
+        }
     }
 
     getDetails(){
-        return `${this._title} by ${this._author}`;
+        let keys = Object.keys(this.description);
+        let values = Object.values(this.description);
+        keys.forEach((key,index) => {
+            console.log(`${key} : ${values[index]}`);
+        })
     }
 }
 
-// decorator 1
-function giftWrap(book){
-    book.isGiftWrapped = true;
-    book.unwrap = function(){
-        return `Unwrapped ${book.getDetails()}`;
-    }
-    return book;
+function upgradedVersion(car){
+    car.description.price += 1000;
+    car.description.hasUpgraded = true;
+    return car;
 }
 
-// decorator 2
-function hardbindBook(book){
-    book.isHardbound = true;
-    book.price += 5;
-    return book;
+function reducedVersion(car){
+    car.description.price -= 1000;
+    car.description.isReduced = true;
+    return car;
 }
 
-const alchemist = giftWrap(new Book('The Alchemist','Paulo Coelho',10));
+let bmwUp = upgradedVersion(new Car('BMW',2000));
+bmwUp.getDetails();
 
-console.log(alchemist.isGiftWrapped);
-console.log(alchemist.unwrap());
-
-const inferno = hardbindBook(new Book('Inferno','Dan Brown',15));
-
-console.log(inferno.isHardbound);
-console.log(inferno.price);
+let bmwDown = reducedVersion(new Car('BMW',2000));
+bmwDown.getDetails();

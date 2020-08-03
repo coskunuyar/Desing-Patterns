@@ -6,10 +6,10 @@ class ComplaintRegistry{
         let registry;
         if(type === 'service'){
             registry = new ServiceComplaints();
-        }else {
+        }else{
             registry = new ProductComplaints();
         }
-        return registry.addComplaint({id , customer , details});
+        return registry.addComplaint({id , customer , details });
     }
 
     static _uniqueIdGenerator(){
@@ -31,7 +31,7 @@ class Complaints{
         return this.complaints.find(complaint => complaint.id === id);
     }
 
-    replyMessage(complaint){}
+    replyMessage(complaint){};
 }
 
 class ProductComplaints extends Complaints{
@@ -60,8 +60,7 @@ class ServiceComplaints extends Complaints{
         ServiceComplaints.exists = true;
         return this;
     }
-
-    replyMessage({id , customer , details}){
+    replyMessage({ id, customer, details }) {
         return `Complaint No. ${id} reported by ${customer} regarding ${details} have been filed with the Service Complaint Department. The issue will be resolved or the purchase will be refunded as per terms and conditions.`;
     }
 }
