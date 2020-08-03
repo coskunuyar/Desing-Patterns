@@ -8,10 +8,10 @@ class IteratorClass{
         return {
             next: () => {
                 if(this.index < this.data.length){
-                    return { value: this.data[this.index++] , done: false};
+                    return { value: this.data[this.index++], done: false};
                 }else{
                     this.index = 0;
-                    return {done: true};
+                    return {done: true}
                 }
             }
         }
@@ -20,12 +20,12 @@ class IteratorClass{
 
 function* iteratorUsingGenerator(collection){
     let nextIndex = 0;
-    while(nextIndex <collection.length){
+    while(nextIndex < collection.length){
         yield collection[nextIndex++];
     }
 }
 
-const gen = iteratorUsingGenerator(['Hi', 'Hello', 'Bye']);
+const gen = iteratorUsingGenerator(['Hi','Hello','Bye']);
 
 console.log(gen.next().value);
 console.log(gen.next().value);

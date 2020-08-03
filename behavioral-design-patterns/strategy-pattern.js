@@ -24,7 +24,7 @@ class Taxi extends Vehicle{
     }
 }
 
-class PersonalCar extends Vehicle{
+class PersonalCar extends Vehicle {
     constructor(){
         super();
         this._timeTaken = 3;

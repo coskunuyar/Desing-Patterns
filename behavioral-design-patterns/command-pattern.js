@@ -4,11 +4,11 @@ class SpecialMath{
     }
 
     square(){
-        return this._num**2;
+        return this._num ** 2;
     }
 
     cube(){
-        return this._num**3;
+        return this._num ** 4;
     }
 
     squareRoot(){
@@ -21,6 +21,7 @@ class Command{
         this._subject = subject;
         this.commandsExecuted = [];
     }
+
     execute(command){
         this.commandsExecuted.push(command);
         return this._subject[command]();
@@ -28,6 +29,7 @@ class Command{
 }
 
 const x = new Command(new SpecialMath(5));
-console.log(x.execute('square'));
-console.log(x.execute('cube'));
+x.execute('square');
+x.execute('cube');
+
 console.log(x.commandsExecuted);

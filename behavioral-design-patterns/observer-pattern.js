@@ -1,4 +1,4 @@
-class Subject{
+class Subject {
     constructor(){
         this._observers = [];
     }
@@ -18,7 +18,7 @@ class Subject{
     }
 }
 
-class observer{
+class Observer{
     constructor(state){
         this.state = state;
         this.initialState = state;
@@ -50,3 +50,6 @@ sub.subscribe(obs1);
 sub.subscribe(obs2);
 
 sub.fire('INC');
+
+console.log(obs1.state);
+console.log(obs2.state);

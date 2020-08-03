@@ -1,4 +1,4 @@
-class Employee{
+class Employee {
     constructor(name,salary){
         this._name = name;
         this._salary = salary;
@@ -33,7 +33,7 @@ class Tester extends Employee{
     }
 }
 
-const dev = new Developer('Nathan',10000);
+const dev = new Developer('Nathan',100000);
 console.log(dev.getPaid());
 console.log(dev.work());
 
