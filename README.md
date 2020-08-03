@@ -1,7 +1,7 @@
 # Desing-Patterns-JS
 
 #### Creational Design Patterns
-Constructor Pattern
+###### Constructor Pattern
 Factory Pattern
 Prototype Pattern
 Singleton Pattern
