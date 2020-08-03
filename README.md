@@ -1,5 +1,15 @@
 # Desing-Patterns-JS
 
+#### Behavioral Design Patterns
+###### Chaing of Responsibility Pattern
+###### Command Pattern
+###### Iterator Pattern
+###### Mediator Pattern
+###### Observer Pattern
+###### State Pattern
+###### Strategy Pattern
+###### Template Pattern
+
 #### Creational Design Patterns
 ###### Constructor Pattern
 ###### Factory Pattern
