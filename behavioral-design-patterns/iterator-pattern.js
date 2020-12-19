@@ -1,32 +1,26 @@
-class IteratorClass{
-    constructor(data){
-        this.index = 0;
-        this.data = data;
-    }
+// Behaviroal Design Patterns
+// Iterator patttern
 
-    [Symbol.iterator](){
-        return {
-            next: () => {
-                if(this.index < this.data.length){
-                    return { value: this.data[this.index++], done: false};
-                }else{
-                    this.index = 0;
-                    return {done: true}
-                }
-            }
+class ICanItareMyData{
+  constructor(data){
+    this._data = data;
+  }
+
+  [Symbol.iterator](){
+    let count = 0;
+    return {
+      next: () => {
+        if(count < this._data.length){
+          return { value: this._data[count++] , done: false };
+        }else{
+          return { done: true }
         }
+      }
     }
+  }
 }
 
-function* iteratorUsingGenerator(collection){
-    let nextIndex = 0;
-    while(nextIndex < collection.length){
-        yield collection[nextIndex++];
-    }
+const store = new ICanItareMyData([1,2,3,4,5]);
+for(let item of store){
+  console.log(item);
 }
-
-const gen = iteratorUsingGenerator(['Hi','Hello','Bye']);
-
-console.log(gen.next().value);
-console.log(gen.next().value);
-console.log(gen.next().value);
