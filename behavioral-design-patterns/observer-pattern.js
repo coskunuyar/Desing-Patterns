@@ -1,55 +1,40 @@
-class Subject {
-    constructor(){
-        this._observers = [];
-    }
+// Behaviroal Design Patterns
+// Oberserver patttern
 
-    subscribe(observer){
-        this._observers.push(observer);
-    }
+class Subject{
+  constructor(subject){
+    this.subject = subject;
+    this.subscribers = [];
+  }
 
-    unsubscribe(observer){
-        this._observers = this._observers.filter(obs => observer !== obs);
-    }
+  register(observer){
+    this.subscribers.push(observer);
+  }
 
-    fire(change){
-        this._observers.forEach(observer => {
-            observer.update(change);
-        });
-    }
+  unregister(observer){
+    this.subscribers = this.subscribers.filter(obs => obs !== observer);
+  }
+
+  fire(action){
+    this.subscribers.forEach(observer => {
+      observer.fire(action)
+    })
+  }
 }
 
-class Observer{
-    constructor(state){
-        this.state = state;
-        this.initialState = state;
-    }
-
-    update(change){
-        let state = this.state;
-        switch(change){
-            case 'INC':
-                state++;
-                this.state = state;
-                break;
-            case 'DEC':
-                state--;
-                this.state = state;
-                break;
-            default:
-                this.state = this.initialState;
-        }
-    }
+class Oberserver{
+  fire(action){
+    return `${action} is dispatched!`;
+  }
 }
 
-const sub = new Subject();
+const randomSubject = new Subject('random');
+const observer1 = new Oberserver();
+const observer2 = new Oberserver();
+const observer3 = new Oberserver();
 
-const obs1 = new Observer(1);
-const obs2 = new Observer(19);
+randomSubject.register(observer1);
+randomSubject.register(observer2);
+randomSubject.register(observer3);
 
-sub.subscribe(obs1);
-sub.subscribe(obs2);
-
-sub.fire('INC');
-
-console.log(obs1.state);
-console.log(obs2.state);
+randomSubject.fire('random action');
