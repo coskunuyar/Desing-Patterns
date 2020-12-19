@@ -1,23 +1,27 @@
-function Country(name,region){
-    this.name = name;
-    this.region = region;
-    this.identify = function(){
-        return `Name: ${this.name} , Region: ${this.region}`;
-    }
+// Creational Patters
+// Constructor Pattern
+
+// class Hero{
+//   constructor(name , abilities){
+//     this._name = name;
+//     this._abilities = abilities;
+//     this.getDetails = function(){
+//       this._abilities.forEach(ability => {
+//         console.log(`${this._name} can ${ability}`);
+//       })
+//     }
+//   }
+// }
+
+function Hero(name , abilities){
+  this._name = name;
+  this._abilities = abilities;
+  this.getDetails = function(){
+    this._abilities.forEach(ability => {
+      console.log(`${this._name} can ${ability}`)
+    })
+  }
 }
 
-class Country{
-    constructor(name,region){
-        this.name = name;
-        this.region = region;
-        this.identify = function(){
-            return `Name: ${this.name} , Region: ${this.region}`;
-        }
-    }
-}
-
-let canada = new Country("Canada","North America");
-let mexico = new Country("Mexico","South America");
-
-console.log(canada.identify());
-console.log(mexico.identify());
+const superman = new Hero('super',['fly','throw laser from eyes']);
+superman.getDetails();
