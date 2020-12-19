@@ -1,101 +1,74 @@
-class Component {
-    constructor(name){
-        this._name = name;
-    }
+// Structural Design Patterns
+// Composite pattern
 
-    getNodeName(){
-        return this._name;
-    }
+class Node{
+  constructor(value){
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
 
-    getType(){}
+  getType(){
+    if(this.left || this.right) return 'Tree';
+    return 'Leaf';
+  }
+}
 
-    addChild(component){}
+class Tree{
+  constructor(){
+    this.root = null;
+  }
 
-    removeChildByName(componentName){}
-
-    removeChildByIndex(index){}
-
-    getChildByName(componentName){}
-
-    getChildByIndex(index){}
-
-    noOfChildren(){}
-
-    static logTreeStructure(root){
-        let treeStructure = '';
-        function traverse(node,indent = 0){
-            treeStructure += `${'--'.repeat(indent)}${node.getNodeName()}\n`;
-            indent++;
-            for (let i = 0, length = node.noOfChildren(); i < length; i++) {
-                traverse(node.getChildByIndex(i),indent);
-            }
+  insert(value){
+    const newNode = new Node(value);
+    if(!this.root){
+      this.root = newNode;
+    }else{
+      let current = this.root;
+      while(true){
+        if(value < current.value){
+          if(current.left){
+            current = current.left;
+          }else{
+            current.left = newNode;
+            break;
+          }
+        }else if(value > current.value){
+          if(current.right){
+            current = current.right;
+          }else{
+            current.right = newNode;
+            break;
+          }
         }
-        traverse(root);
-        return treeStructure;
+      }
     }
+  }
+
+  traverse(){
+    if(!this.root) return;
+    const queue = [this.root];
+    const result = [];
+
+    while(queue.length){
+      const shiftedNode = queue.shift(); 
+      result.push({ value: shiftedNode.value , type: shiftedNode.getType() })
+      shiftedNode.left && queue.push(shiftedNode.left);
+      shiftedNode.right && queue.push(shiftedNode.right);
+    }
+
+    result.forEach(item => {
+      console.log(`value: ${item.value} , type: ${item.type}`);
+    })
+  }
 }
 
-class Composite extends Component{
-    constructor(name){
-        super(name);
-        this._type = 'Composite Node';
-        this._children = [];
-    }
-
-    getType(){
-        return this._type;
-    }
-
-    addChild(component){
-        this._children = [...this._children,component];
-    }
-
-    removeChildByName(componentName){
-        this._children = [...this._children].filter(component => component.getNodeName() !== componentName);
-    }
-
-    removeChildByIndex(index){
-        this._children = [...this._children.slice(0,index) , ...this._children.slice(index + 1)];
-    }
-
-    getChildByName(componentName){
-        return this._children.find(component => component.name === componentName);
-    }
-    
-    getChildByIndex(index){
-        return this._children[index];
-    }
-
-    noOfChildren(){
-        return this._children.length;
-    }
-}
-
-class Leaf extends Component{
-    constructor(name){
-        super(name);
-        this._type = 'Leaf Node';
-    }
-
-    getType(){
-        return this._type;
-    }
-
-    noOfChildren(){
-        return 0;
-    }
-}
-
-
-const tree = new Composite('root');
-tree.addChild(new Leaf('left'));
-const right = new Composite('right');
-tree.addChild(right);
-right.addChild(new Leaf('right-left'));
-const rightMid = new Composite('right-middle');
-right.addChild(rightMid);
-right.addChild(new Leaf('right-right'));
-rightMid.addChild(new Leaf('left-end'));
-rightMid.addChild(new Leaf('right-end'));
-
-console.log(Component.logTreeStructure(tree));
+const tree = new Tree();
+tree.insert(5);
+tree.insert(3);
+tree.insert(7);
+tree.insert(2);
+tree.insert(4);
+tree.insert(6);
+tree.insert(8);
+tree.traverse();
