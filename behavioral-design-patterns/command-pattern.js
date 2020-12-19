@@ -1,35 +1,44 @@
-class SpecialMath{
-    constructor(num){
-        this._num = num;
-    }
-
-    square(){
-        return this._num ** 2;
-    }
-
-    cube(){
-        return this._num ** 4;
-    }
-
-    squareRoot(){
-        return Math.sqrt(this._num);
-    }
-}
+// Behaviroal Design Patterns
+// Command patttern
 
 class Command{
-    constructor(subject){
-        this._subject = subject;
-        this.commandsExecuted = [];
-    }
+  constructor(obj){
+    this.commandsExecuted = [];
+    this.obj = obj;
+  }
 
-    execute(command){
-        this.commandsExecuted.push(command);
-        return this._subject[command]();
-    }
+  execute(command){
+    this.commandsExecuted.push(command);
+    return this.obj[command]();
+  }
 }
 
-const x = new Command(new SpecialMath(5));
-x.execute('square');
-x.execute('cube');
+class OptimusPrime{
+  constructor(){
+    this.mode = 'Truck'
+  }
 
-console.log(x.commandsExecuted);
+  changeMode(){
+    this.mode = this.mode === 'Robot' ? 'Truck' : 'Robot';
+  }
+
+  shoot(){
+    if(this.mode = 'Robot') return 'Shot!';
+    return 'Change Mode! :(';
+  }
+
+  defend(){
+    if(this.mode = 'Robot') return 'Defend!';
+    return 'Change Mode! :(';
+  }
+}
+
+const commander = new Command(new OptimusPrime());
+
+commander.execute('changeMode');
+console.log(commander.execute('shoot'));
+console.log(commander.execute('shoot'));
+console.log(commander.execute('shoot'));
+console.log(commander.execute('defend'));
+
+console.log(commander.commandsExecuted);
