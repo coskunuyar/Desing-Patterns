@@ -1,74 +1,63 @@
-let currentId = 0;
+// Structural Design Patterns
+// Facade pattern
 
-class ComplaintRegistry{
-    registerComplaint(customer,type,details){
-        const id = ComplaintRegistry._uniqueIdGenerator();
-        let registry;
-        if(type === 'service'){
-            registry = new ServiceComplaints();
-        }else{
-            registry = new ProductComplaints();
-        }
-        return registry.addComplaint({id , customer , details });
+class PublicComplaintManager{
+    register(type,complaint){
+      const id = Math.random().toString().replace('0.','');
+      if(type === 'product'){
+        const manager = new ProductComplaintManager();
+        manager.register(complaint,id);
+      }else if(type === 'service'){
+        const manager = new ServiceComplaintManager();
+        manager.register(complaint,id);
+      }
     }
 
-    static _uniqueIdGenerator(){
-        return ++currentId;
-    }
-}
-
-class Complaints{
-    constructor(){
-        this.complaints = [];
-    }
-
-    addComplaint(complaint){
-        this.complaints.push(complaint);
-        return this.replyMessage(complaint);
-    }
-
-    getComplaint(id){
-        return this.complaints.find(complaint => complaint.id === id);
-    }
-
-    replyMessage(complaint){};
-}
-
-class ProductComplaints extends Complaints{
-    constructor(){
-        super();
-        if(ProductComplaints.exists){
-            return ProductComplaints.instance;
-        }
-        ProductComplaints.instance = this;
-        ProductComplaints.exists = true;
-        return this;
-    }
-
-    replyMessage({id , customer , details}){
-        return `Complaint No. ${id} reported by ${customer} regarding ${details} have been filed with the Products Complaint Department. Replacement/Repairment of the product as per terms and conditions will be carried out soon.`;
+    logs(){
+      const manager1 = new ProductComplaintManager();
+      manager1.logs();
+      const manager2 = new ServiceComplaintManager();
+      manager2.logs();
     }
 }
 
-class ServiceComplaints extends Complaints{
-    constructor(){
-        super();
-        if(ServiceComplaints.exists){
-            return ServiceComplaints.instance;
-        }
-        ServiceComplaints.instance = this;
-        ServiceComplaints.exists = true;
-        return this;
-    }
-    replyMessage({ id, customer, details }) {
-        return `Complaint No. ${id} reported by ${customer} regarding ${details} have been filed with the Service Complaint Department. The issue will be resolved or the purchase will be refunded as per terms and conditions.`;
-    }
+class ProductComplaintManager{
+  constructor(){
+    if(ProductComplaintManager.instace) return ProductComplaintManager.instace
+    this.storage = []
+    ProductComplaintManager.instace = this;
+  }
+
+  register(complaint){
+    this.storage.push({ complaint , type: 'product' , complexity: true })
+  }
+
+  logs(){
+    this.storage.forEach(log => {
+      console.log(log.complaint);
+    });
+  }
 }
 
-const registry = new ComplaintRegistry();
+class ServiceComplaintManager{
+  constructor(){
+    if(ServiceComplaintManager.instace) return ServiceComplaintManager.instace
+    this.storage = []
+    ServiceComplaintManager.instace = this;
+  }
 
-const reportService = registry.registerComplaint('Martha', 'service', 'availability');
-console.log(reportService);
+  register(complaint){
+    this.storage.push({ complaint , type: 'product' })
+  }
 
-const reportProduct = registry.registerComplaint('Jane', 'product', 'faded color');
-console.log(reportProduct);
+  logs(){
+    this.storage.forEach(log => {
+      console.log(log.complaint);
+    });
+  }
+}
+
+const manager = new PublicComplaintManager;
+manager.register('product','What a shitty product!');
+manager.register('service','What a shitty service!');
+manager.logs();
