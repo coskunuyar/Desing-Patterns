@@ -1,42 +1,41 @@
-class Employee {
-    constructor(name,salary){
-        this._name = name;
-        this._salary = salary;
-    }
+// Behaviroal Design Patterns
+// Template patttern
 
-    work(){
-        return `${this._name} handles ${this.responsibilities()}`;
-    }
+class EmployeeTemplate{
+  constructor(name,salary){
+    this._name = name;
+    this._salary = salary;
+  }
 
-    getPaid(){
-        return `${this._name} got paid ${this._salary}`;
-    }
+  pay(){
+    return `name: ${this._name} , salary: ${this._salary} paid!`;
+  }
 }
 
-class Developer extends Employee{
-    constructor(name,salary){
-        super(name,salary);
-    }
+class Developer extends EmployeeTemplate{
+  constructor(name,salary){
+    super(name,salary);
+  }
 
-    responsibilities(){
-        return 'application development';
-    }
+  work(){
+    return `${this._name} is doing development!`
+  }
 }
 
-class Tester extends Employee{
-    constructor(name,salary){
-        super(name,salary);
-    }
 
-    responsibilities(){
-        return 'testing';
-    }
+class Tester extends EmployeeTemplate{
+  constructor(name,salary){
+    super(name,salary);
+  }
+
+  work(){
+    return `${this._name} is doing testing!`
+  }
 }
 
-const dev = new Developer('Nathan',100000);
-console.log(dev.getPaid());
-console.log(dev.work());
 
-const tester = new Tester('Brian',90000);
-console.log(tester.getPaid());
-console.log(tester.work());
+const developer1 = new Developer('coskun','100k $')
+console.log(developer1.work());
+
+const tester1 = new Tester('xxxxxx','80k $');
+console.log(tester1.work());
