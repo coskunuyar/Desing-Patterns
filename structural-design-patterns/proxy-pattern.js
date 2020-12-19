@@ -1,19 +1,22 @@
-function networkFetch(url){
-    return `${url} - Response from network!`;
-}
+// Structural Design Patterns
+// Proxy pattern
 
 const cache = [];
-const proxiedNetworkFetch = new Proxy(networkFetch,{
-    apply(target,thisArg,args){
-        const urlParam = args[0];
-        if(cache.includes(urlParam)){
-            return `${urlParam} - Response from cache`; 
-        }else{
-            cache.push(urlParam);
-            return target.apply(thisArg,args);
-        }
-    }
-});
+function heavyNetworkRequest(fileName){
+  cache.push(fileName);
+  return `Data of ${fileName}-from request!`;
+}
 
-console.log(proxiedNetworkFetch('dogPic.jpg'));
-console.log(proxiedNetworkFetch('dogPic.jpg'));
+const proxiedHeavyNetworkRequest = new Proxy(heavyNetworkRequest,{
+  apply: function(target , thisArgs , args){
+    const fileName = args[0];
+    if(cache.includes(fileName)){
+      return `Data of ${fileName}-from cache!`
+    }else{
+      return Reflect.apply(target , thisArgs , args);
+    }
+  }
+})
+
+console.log(proxiedHeavyNetworkRequest('dogpic.jpg'))
+console.log(proxiedHeavyNetworkRequest('dogpic.jpg'))
