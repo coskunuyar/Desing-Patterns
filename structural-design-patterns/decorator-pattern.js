@@ -1,34 +1,35 @@
+// Structural Design Patterns
+// Decorator pattern
+
 class Car{
-    constructor(name,price){
-        this.description = {
-            name,
-            price
-        }
-    }
+  constructor(brand , model){
+    this._brand = brand;
+    this._model = model;
+    this._start = false;
+  }
 
-    getDetails(){
-        let keys = Object.keys(this.description);
-        let values = Object.values(this.description);
-        keys.forEach((key,index) => {
-            console.log(`${key} : ${values[index]}`);
-        })
-    }
+  start(){
+    this._start = true;
+    return `${this._brand}-${this._model} is started!`;
+  }
+
+  stop(){
+    this._start = false;
+    return `${this._brand}-${this._model} is stopped!`;
+  }
 }
 
-function upgradedVersion(car){
-    car.description.price += 1000;
-    car.description.hasUpgraded = true;
-    return car;
+function turboDecorator(car){
+  car.isUpgraded = true;
+  car.turbo = function(){
+    const started = this.start();
+    return `${started} ${this._brand}-${this._model} works with turbo!`;
+  }
+  return car;
 }
 
-function reducedVersion(car){
-    car.description.price -= 1000;
-    car.description.isReduced = true;
-    return car;
-}
+const bmw = turboDecorator(new Car('bmw','sedan'));
+const mercedes = turboDecorator(new Car('mercedes','sedan'));
 
-let bmwUp = upgradedVersion(new Car('BMW',2000));
-bmwUp.getDetails();
-
-let bmwDown = reducedVersion(new Car('BMW',2000));
-bmwDown.getDetails();
+console.log(bmw.turbo());
+console.log(mercedes.turbo());
