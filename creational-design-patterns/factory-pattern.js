@@ -1,33 +1,53 @@
+// Creational Design Patters
+// Factory
+
 class Factory{
-    constructor(){
-        this.createVehicle = function(type){
-            if(type === "car") return new Car();
-            if(type === "truck") return new Truck();
-        }
+  constructor(name){
+    this._name = name;
+    this.produce = function(type){
+      let item;
+
+      if(type === 'car'){
+        item = new Car();
+      }else if(type === 'truck'){
+        item = new Truck();
+      }
+
+      item.getProducerInfo = function(){
+        return `Producer is ${this._name}.`;
+      }.bind(this);
+
+      return item;
     }
+  }
 }
 
 class Car{
-    constructor(){
-        this.type = "car";
-        this.travel = function(destionation){
-            return `Traveling to ${destionation}`;
-        }
+  constructor(model){
+    this._type = 'Car';
+    this._model = model;
+    this.start = function(){
+      return `${this._type} is started! Car`;
     }
+  }
 }
 
 class Truck{
-    constructor(){
-        this.type = "truck";
-        this.transport = function(goods){
-            return `Transporting ${goods}`;
-        }
+  constructor(model){
+    this._type = 'Truck';
+    this._model = model;
+    this.start = function(){
+      return `${this._type} is stared! Truck`
     }
+  }
 }
 
-const factory = new Factory();
+const factory = new Factory('Mercedes');
+const vehicle1 = factory.produce('car');
+const vehicle2 = factory.produce('truck');
 
-let car = factory.createVehicle("car");
-let truck = factory.createVehicle("truck");
+console.log(vehicle1.start());
+console.log(vehicle1.getProducerInfo());
 
-console.log(car.travel("Istanbul"),truck.transport("Gold"));
+console.log(vehicle2.start());
+console.log(vehicle2.getProducerInfo());
