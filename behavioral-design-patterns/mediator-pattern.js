@@ -1,40 +1,45 @@
-class TrafficTower {
-    constructor(){
-        this._airplanes = [];
-    }
+// Behaviroal Design Patterns
+// Mediator patttern
 
-    register(airplane){
-        this._airplanes.push(airplane);
-        airplane.register(this);
-    }
+class HeadQuarter{
+  constructor(){
+    this.employees = [];
+  }
 
-    requestCoordinates(airplane){
-        return this._airplanes.filter(plane => airplane !== plane)
-                              .map(plane => plane.coordinates);
-    }
+  register(employee){
+    this.employees.push(employee);
+  }
+
+  getEmployees(employee){
+    return this.employees.filter(person => person !== employee)
+                         .map(person => ({ name: person.name , location: person.location}));
+  }
 }
 
-class Airplane{
-    constructor(coordinates){
-        this.coordinates = coordinates;
-        this.trafficTower = null;
-    }
+class Employee{
+  constructor(name,location){
+    this.name = name;
+    this.location = location;
+    this.headQuarter = null;
+  }
 
-    register(trafficTower){
-        this.trafficTower = trafficTower;
-    }
+  register(headQuarter){
+    this.headQuarter = headQuarter;
+    headQuarter.register(this);
+  }
 
-    requestCoordinates(){
-        if(this.trafficTower) return this.trafficTower.requestCoordinates(this);
-        return null;
-    }
+  getFriends(){
+    return this.headQuarter.getEmployees(this);
+  }
 }
 
-const tower = new TrafficTower();
-const airplanes = [new Airplane(10), new Airplane(20), new Airplane(30)];
+const company = new HeadQuarter();
+const employee1 = new Employee('coskun','istanbul');
+const employee2 = new Employee('x','new york');
+const employee3 = new Employee('y','tokyo');
 
-airplanes.forEach(airplane => {
-  tower.register(airplane);
-});
+[employee1,employee2,employee3].forEach(employee => {
+  employee.register(company);
+})
 
-console.log(airplanes.map(airplane => airplane.requestCoordinates()));
+console.log(employee1.getFriends())
