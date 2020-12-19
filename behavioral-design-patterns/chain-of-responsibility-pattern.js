@@ -1,17 +1,21 @@
-class CumulativeSum{
-    constructor(intialValue = 0){
-        this.sum = intialValue;
-    }
+// Behaviroal Design Patterns
+// Chain of responsibility patttern
 
-    add(value){
-        this.sum += value;
-        return this;
-    }
+class Calculator{
+  constructor(value = 0){
+    this.value = value;
+  }
+
+  add(value){
+    this.value += value;
+    return this;
+  }
+
+  substract(value){
+    this.value -= value;
+    return this;
+  }
 }
 
-const sum1 = new CumulativeSum();
-console.log(sum1.add(10).add(2).add(50).sum);
-
-
-const sum2 = new CumulativeSum(10);
-console.log(sum2.add(10).add(20).add(5).sum);
+const calc = new Calculator(5);
+console.log(calc.add(10).add(10).substract(1).value);
