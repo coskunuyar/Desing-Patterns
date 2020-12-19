@@ -1,7 +1,7 @@
 # Desing-Patterns-JS
 
 #### Behavioral Design Patterns
-###### Chaing of Responsibility Pattern
+###### Chaning of Responsibility Pattern
 ###### Command Pattern
 ###### Iterator Pattern
 ###### Mediator Pattern
