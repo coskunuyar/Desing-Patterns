@@ -1,70 +1,50 @@
-class TrafficLight{
-    constructor(){
-        this.states = [new GreenLight(),new RedLight(),new YellowLight()];
-        this.current = this.states[0];
-    }
+// Behaviroal Design Patterns
+// State patttern
 
-    change(){
-        const totalStates = this.states.length;
-        let currentIndex = this.states.findIndex(light => light === this.current);
-        if(currentIndex + 1 < totalStates) this.current = this.states[currentIndex + 1];
-        else this.current = this.states[0]
-    }
+class TrafficLights{
+  constructor(){
+    this.states = [
+      new Light('green','Go!'), 
+      new Light('yellow' , 'Wait!'), 
+      new Light('red','Stop!')
+    ]
+    this.currentIndex = 0;
+  }
 
-    sign(){
-        return this.current.sign();
+  changeState(){
+    if(this.currentIndex + 1 > this.states.length-1){
+      this.currentIndex = 0
+    }else{
+      this.currentIndex++;
     }
+  }
+
+  showSign(){
+    return this.states[this.currentIndex].sign();
+  }
 }
 
 class Light{
-    constructor(light){
-        this.light = light;
-    }
+  constructor(type,message){
+    this._type = type;
+    this._message = message;
+  }
+
+  sign(){
+    return this._message;
+  }
 }
 
-class RedLight extends Light{
-    constructor(){
-        super('red');
-    }
+const trafficLights = new TrafficLights();
 
-    sign(){
-        return 'STOP';
-    }
-}
+console.log(trafficLights.showSign());
+trafficLights.changeState();
 
-class YellowLight extends Light{
-    constructor(){
-        super('yellow');
-    }
+console.log(trafficLights.showSign());
+trafficLights.changeState();
 
-    sign(){
-        return 'STEADY';
-    }
-}
+console.log(trafficLights.showSign());
+trafficLights.changeState();
 
-class GreenLight extends Light{
-    constructor(){
-        super('green');
-    }
-
-    sign(){
-        return 'GO';
-    }
-}
-
-// usage
-const trafficLight = new TrafficLight();
-
-console.log(trafficLight.sign());
-trafficLight.change();
-
-console.log(trafficLight.sign());
-trafficLight.change();
-
-console.log(trafficLight.sign());
-trafficLight.change();
-
-console.log(trafficLight.sign());
-trafficLight.change();
-
-console.log(trafficLight.sign());
+console.log(trafficLights.showSign());
+trafficLights.changeState();
