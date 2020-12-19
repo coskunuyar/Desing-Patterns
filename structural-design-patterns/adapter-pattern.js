@@ -1,71 +1,46 @@
-class OldManupulator{
-    constructor(data){
-        this._data = data;
-    }
+// Structural Design Patterns
+// Adapter pattern
 
-    operator(type,index){
-        if(type === "delete"){
-            this._data = this._data.filter(item => item.index !== index);
-        }else if(type === "update"){
-            this._data.forEach(item => {
-                if(item.index === index){
-                    item.isUpdated = true;                
-                }
-            });
-        }
+class OldCalc{
+  operation(value1 , value2 , operation){
+    if(operation === 'add'){
+      return value1 + value2;
+    }else if(operation === 'subtract'){
+      return value1 - value2;
     }
+  }
 }
 
-class NewManupulator{
-    constructor(data){
-        this._data = data;
-    }
+// a beauftiful class with clean architecture
+class NewCalc{
+  constructor(){
+    this.history = [];
+  }
 
-    delete(index){
-        this._data = this._data.filter(item => item.index !== index);
-    }
+  add(value1 , value2){
+    const result = value1 + value2;
+    this.history.push({ type: 'add' , result })
+    return result;
+  }
 
-    update(index){
-        this._data.forEach(item => {
-            if(item.index === index){
-                item.isUpdated = true;                
-            }
-        });
-    }
+  subtract(value1 , value2){
+    const result = value1 - value2;
+    this.history.splice({ type: 'subtract' , result })
+    return result;
+  }
 }
 
-const initialData = [
-    {index: 0 , isUpdated: false},
-    {index: 1 , isUpdated: false}
-];
-
-let oldM = new OldManupulator(initialData);
-oldM.operator("delete",0);
-oldM.operator("update",1);
-console.log(oldM._data);
-
-let newM = new NewManupulator(initialData);
-newM.delete(0);
-newM.update(1);
-console.log(newM._data);
-
-class AdaptorManupulator{
-    constructor(data){
-        this._data = data;
+class AdapterClass{
+  operation(value1 , value2 , operation){
+    const newCalc = new NewCalc();
+    if(operation === 'add'){
+      return newCalc.add(value1,value2)
+    }else if(operation === 'subtract'){
+      return newCalc.subtract(value1,value2);
     }
-
-    operator(type,index){
-        let newOperator = new NewManupulator(this._data);
-        if(type === "delete"){
-            newOperator.delete(index);
-        }else if(type === "update"){
-            newOperator.update(index);
-        }
-        this._data = newOperator._data;
-    }
+  }
 }
 
-let adopterM = new AdaptorManupulator(initialData);
-adopterM.operator("delete",0);
-adopterM.operator("update",1);
-console.log(adopterM._data);
+const calc = new AdapterClass();
+console.log(calc.operation(10,5,'add'));
+console.log(calc.operation(10,5,'subtract'))
