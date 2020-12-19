@@ -1,37 +1,34 @@
-class Commute{
-    travel(transport){
-        return transport.travelTime();
-    }
+// Behaviroal Design Patterns
+// Strategy patttern
+
+class Commuter{
+  play(player){
+    return player.run();
+  }
 }
 
-class Vehicle{
-    travelTime(){
-        return this._timeTaken;
-    }
+// Strategy 1
+class Stoper{
+  run(){
+    return `Running 5 km/s`;
+  }
 }
 
-class Bus extends Vehicle{
-    constructor(){
-        super();
-        this._timeTaken = 10;
-    }
+// Strategy 2
+class Forvet{
+  run(){
+    return `Running 12 km/s`;
+  }
 }
 
-class Taxi extends Vehicle{
-    constructor(){
-        super();
-        this._timeTaken = 5;
-    }
+// Strategy 3
+class GoalKeeper{
+  run(){
+    return `Running 1 km/s`;
+  }
 }
 
-class PersonalCar extends Vehicle {
-    constructor(){
-        super();
-        this._timeTaken = 3;
-    }
-}
-
-const commute = new Commute();
-
-console.log(commute.travel(new Taxi()));
-console.log(commute.travel(new Bus()));
+const commuter = new Commuter();
+console.log(commuter.play(new Stoper()));
+console.log(commuter.play(new Forvet()));
+console.log(commuter.play(new GoalKeeper()));
