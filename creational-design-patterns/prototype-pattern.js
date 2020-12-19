@@ -1,15 +1,19 @@
-const game = {
-    description: function(){
-        return `Name:${this.name} , 
-                Owner: ${this.owner} , 
-                CreationDate: ${this.creationDate}`;
-    }
-};
+// Creational Design Patterns
+// Prototype Pattern
 
-let airStrike3 = Object.create(game, {
-    name: { value: "Air Strike 3"}, 
-    owner: {value: "Coskun Uyar"},
-    creationDate: {value: Date.now()}
-});
+const car = {
+  numOfSeats: 4,
+  type: 'sedan',
+  start(){
+    return `Card is started!`;
+  },
+  getDetails(){
+    return `owner: ${this.owner} \n numOfSeats: ${this.numOfSeats} \n type: ${this.type}`;
+  }
+}
 
-console.log(airStrike3.description());
+const vehicle1 = Object.create(car, { owner: { value: 'Coskun Uyar' }});
+const vehicle2 = Object.create(car, { owner: { value: 'Uyar Coskun' }});
+
+console.log(vehicle1.getDetails());
+console.log(vehicle2.getDetails());
