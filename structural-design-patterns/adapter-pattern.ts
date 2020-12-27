@@ -2,7 +2,7 @@
 // Adapter pattern
 
 class OldCalc{
-  operation(value1 , value2 , operation){
+  public operation(value1: number , value2: number , operation: string): number{
     if(operation === 'add'){
       return value1 + value2;
     }else if(operation === 'subtract'){
@@ -13,25 +13,26 @@ class OldCalc{
 
 // a beauftiful class with clean architecture
 class NewCalc{
+  history: { type: string , result: number }[];
   constructor(){
     this.history = [];
   }
 
-  add(value1 , value2){
+  public add(value1: number , value2: number): number{
     const result = value1 + value2;
     this.history.push({ type: 'add' , result })
     return result;
   }
 
-  subtract(value1 , value2){
+  public subtract(value1: number , value2: number): number{
     const result = value1 - value2;
-    this.history.splice({ type: 'subtract' , result })
+    this.history.push({ type: 'subtract' , result })
     return result;
   }
 }
 
 class AdapterClass{
-  operation(value1 , value2 , operation){
+  public operation(value1:number , value2: number , operation: string): number{
     const newCalc = new NewCalc();
     if(operation === 'add'){
       return newCalc.add(value1,value2)
@@ -41,6 +42,6 @@ class AdapterClass{
   }
 }
 
-const calc = new AdapterClass();
-console.log(calc.operation(10,5,'add'));
-console.log(calc.operation(10,5,'subtract'))
+const calculatorSample = new AdapterClass();
+console.log(calculatorSample.operation(10,5,'add'));
+console.log(calculatorSample.operation(10,5,'subtract'));

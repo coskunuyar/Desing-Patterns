@@ -2,7 +2,7 @@
 // Proxy pattern
 
 const cache = [];
-function heavyNetworkRequest(fileName){
+function heavyNetworkRequest(fileName: string ){
   cache.push(fileName);
   return `Data of ${fileName}-from request!`;
 }

@@ -2,18 +2,17 @@
 // Facade pattern
 
 class PublicComplaintManager{
-    register(type,complaint){
-      const id = Math.random().toString().replace('0.','');
+    public register(type: string ,complaint: string): void{
       if(type === 'product'){
         const manager = new ProductComplaintManager();
-        manager.register(complaint,id);
+        manager.register(complaint);
       }else if(type === 'service'){
         const manager = new ServiceComplaintManager();
-        manager.register(complaint,id);
+        manager.register(complaint);
       }
     }
 
-    logs(){
+    public logs(): void{
       const manager1 = new ProductComplaintManager();
       manager1.logs();
       const manager2 = new ServiceComplaintManager();
@@ -21,14 +20,23 @@ class PublicComplaintManager{
     }
 }
 
+interface Complaint{
+  complaint: string;
+  type: string;
+  complexity?: boolean;
+}
+
 class ProductComplaintManager{
+  private storage: Complaint[];
+  static instance: ProductComplaintManager;
+  
   constructor(){
-    if(ProductComplaintManager.instace) return ProductComplaintManager.instace
+    if(ProductComplaintManager.instance) return ProductComplaintManager.instance
     this.storage = []
-    ProductComplaintManager.instace = this;
+    ProductComplaintManager.instance = this;
   }
 
-  register(complaint){
+  register(complaint: string){
     this.storage.push({ complaint , type: 'product' , complexity: true })
   }
 
@@ -40,10 +48,13 @@ class ProductComplaintManager{
 }
 
 class ServiceComplaintManager{
+  static instance: ServiceComplaintManager;
+  private storage: Complaint[];
+
   constructor(){
-    if(ServiceComplaintManager.instace) return ServiceComplaintManager.instace
+    if(ServiceComplaintManager.instance) return ServiceComplaintManager.instance
     this.storage = []
-    ServiceComplaintManager.instace = this;
+    ServiceComplaintManager.instance = this;
   }
 
   register(complaint){
@@ -57,7 +68,7 @@ class ServiceComplaintManager{
   }
 }
 
-const manager = new PublicComplaintManager;
-manager.register('product','What a shitty product!');
-manager.register('service','What a shitty service!');
-manager.logs();
+const complaintManager = new PublicComplaintManager;
+complaintManager.register('product','What a shitty product!');
+complaintManager.register('service','What a shitty service!');
+complaintManager.logs();

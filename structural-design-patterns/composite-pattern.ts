@@ -1,26 +1,31 @@
 // Structural Design Patterns
 // Composite pattern
 
-class Node{
-  constructor(value){
+class TreeNode{
+  value: number;
+  left: TreeNode;
+  right: TreeNode;
+
+  constructor(value: number){
     this.value = value;
     this.left = null;
     this.right = null;
   }
 
-  getType(){
+  public getType(): string{
     if(this.left || this.right) return 'Tree';
     return 'Leaf';
   }
 }
 
 class Tree{
+  private root: TreeNode;
   constructor(){
     this.root = null;
   }
 
-  insert(value){
-    const newNode = new Node(value);
+  public insert(value: number ): void{
+    const newNode = new TreeNode(value);
     if(!this.root){
       this.root = newNode;
     }else{
@@ -45,7 +50,7 @@ class Tree{
     }
   }
 
-  traverse(){
+  public traverse(): void{
     if(!this.root) return;
     const queue = [this.root];
     const result = [];
