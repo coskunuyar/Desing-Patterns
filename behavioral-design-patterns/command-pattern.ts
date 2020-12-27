@@ -2,36 +2,42 @@
 // Command patttern
 
 class Command{
-  constructor(obj){
+  public commandsExecuted: string[]
+  private obj: object
+
+  constructor(obj: object){
     this.commandsExecuted = [];
     this.obj = obj;
   }
 
-  execute(command){
+  public execute(command: string){
     this.commandsExecuted.push(command);
     return this.obj[command]();
   }
 }
 
 class OptimusPrime{
+  private mode: 'Truck' | 'Robot';
+
   constructor(){
-    this.mode = 'Truck'
+    this.mode = 'Truck';
   }
 
-  changeMode(){
+  public changeMode(): void{
     this.mode = this.mode === 'Robot' ? 'Truck' : 'Robot';
   }
 
-  shoot(){
-    if(this.mode = 'Robot') return 'Shot!';
+  public shoot(): string{
+    if(this.mode = 'Robot') return 'Shoot!';
     return 'Change Mode! :(';
   }
 
-  defend(){
+  public defend(): string{
     if(this.mode = 'Robot') return 'Defend!';
     return 'Change Mode! :(';
   }
 }
+
 
 const commander = new Command(new OptimusPrime());
 

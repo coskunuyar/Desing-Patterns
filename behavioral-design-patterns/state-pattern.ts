@@ -2,6 +2,9 @@
 // State patttern
 
 class TrafficLights{
+  states: Light[];
+  currentIndex: number;
+
   constructor(){
     this.states = [
       new Light('green','Go!'), 
@@ -11,7 +14,7 @@ class TrafficLights{
     this.currentIndex = 0;
   }
 
-  changeState(){
+  public changeState(): void{
     if(this.currentIndex + 1 > this.states.length-1){
       this.currentIndex = 0
     }else{
@@ -19,18 +22,21 @@ class TrafficLights{
     }
   }
 
-  showSign(){
+  public showSign(): string{
     return this.states[this.currentIndex].sign();
   }
 }
 
 class Light{
-  constructor(type,message){
+  private _type: 'green' | 'yellow' | 'red';
+  private _message: string;
+
+  constructor(type: 'green' | 'yellow' | 'red' , message: string){
     this._type = type;
     this._message = message;
   }
 
-  sign(){
+  public sign(): string{
     return this._message;
   }
 }

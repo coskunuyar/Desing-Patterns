@@ -2,28 +2,28 @@
 // Strategy patttern
 
 class Commuter{
-  play(player){
+  public play(player: Stoper | Forvet | GoalKeeper ): string{
     return player.run();
   }
 }
 
 // Strategy 1
 class Stoper{
-  run(){
+  public run(): string{
     return `Running 5 km/s`;
   }
 }
 
 // Strategy 2
 class Forvet{
-  run(){
+  public run(): string{
     return `Running 12 km/s`;
   }
 }
 
 // Strategy 3
 class GoalKeeper{
-  run(){
+  public run(): string{
     return `Running 1 km/s`;
   }
 }

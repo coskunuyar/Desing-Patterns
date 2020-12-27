@@ -2,16 +2,18 @@
 // Chain of responsibility patttern
 
 class Calculator{
-  constructor(value = 0){
-    this.value = value;
-  }
+  public value: number;
 
-  add(value){
+  constructor(value = 10){
+    this.value = value;
+  } 
+
+  public add(value: number): Calculator {
     this.value += value;
     return this;
   }
 
-  substract(value){
+  public substract(value: number): Calculator{
     this.value -= value;
     return this;
   }

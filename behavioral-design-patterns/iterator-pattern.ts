@@ -1,19 +1,25 @@
 // Behaviroal Design Patterns
 // Iterator patttern
 
+interface IteratorStep{ 
+  next: () => { value?: any , done: boolean} 
+}
+
 class ICanItareMyData{
-  constructor(data){
+  private _data: any[];
+
+  constructor(data: any[]){
     this._data = data;
   }
 
-  [Symbol.iterator](){
+  public [Symbol.iterator](): IteratorStep {
     let count = 0;
     return {
       next: () => {
         if(count < this._data.length){
           return { value: this._data[count++] , done: false };
         }else{
-          return { done: true }
+          return { done: true };
         }
       }
     }

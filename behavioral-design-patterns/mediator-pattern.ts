@@ -1,34 +1,44 @@
 // Behaviroal Design Patterns
 // Mediator patttern
 
+interface Friend{
+  name: string;
+  location: string
+}
+
 class HeadQuarter{
+  private employees: Employee[];
+
   constructor(){
     this.employees = [];
   }
 
-  register(employee){
+  public register(employee: Employee): void {
     this.employees.push(employee);
   }
-
-  getEmployees(employee){
+  
+  public getEmployees(employee: Employee): Friend[]{
     return this.employees.filter(person => person !== employee)
-                         .map(person => ({ name: person.name , location: person.location}));
+                         .map(person => ({ name: person.name , location: person.location }));
   }
 }
 
 class Employee{
-  constructor(name,location){
+  public name: string;
+  public location: string;
+  public headQuarter: HeadQuarter;
+
+  constructor(name: string , location: string){
     this.name = name;
     this.location = location;
-    this.headQuarter = null;
   }
 
-  register(headQuarter){
+  public register(headQuarter: HeadQuarter): void {
     this.headQuarter = headQuarter;
     headQuarter.register(this);
   }
 
-  getFriends(){
+  public getFriends(): Friend[]{
     return this.headQuarter.getEmployees(this);
   }
 }
