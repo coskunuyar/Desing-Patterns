@@ -1,4 +1,4 @@
-# Desing-Patterns-TS
+# Desing-Patterns
 
 #### Behavioral Design Patterns
 
