@@ -2,17 +2,20 @@
 // Singleton Pattern
 
 class Database{
-  constructor(data){
+  private _data: any[];
+  static instance: Database;
+  
+  constructor(data: any[]){
     if(Database.instance) return Database.instance;
     this._data = data;
     Database.instance = this;
   }
 
-  getData(){
+  public getData(): any[]{
     return this._data;
   }
 
-  setData(data){
+  public setData(data: any[]): any[]{
     this._data = data;
     return this._data;
   }

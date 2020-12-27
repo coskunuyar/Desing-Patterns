@@ -2,15 +2,18 @@
 // Factory
 
 class Factory{
+  private _name: string;
+  public produce: (type: 'car' | 'truck' , model: number) => Car | Truck;
+
   constructor(name){
     this._name = name;
-    this.produce = function(type){
-      let item;
+    this.produce = function(type , model){
+      let item: Car | Truck;
 
       if(type === 'car'){
-        item = new Car();
+        item = new Car(model);
       }else if(type === 'truck'){
-        item = new Truck();
+        item = new Truck(model);
       }
 
       item.getProducerInfo = function(){
@@ -23,7 +26,12 @@ class Factory{
 }
 
 class Car{
-  constructor(model){
+  private _type: string;
+  private _model: number;
+  public start: () => string;
+  public getProducerInfo: () => string;
+  
+  constructor(model: number){
     this._type = 'Car';
     this._model = model;
     this.start = function(){
@@ -33,6 +41,11 @@ class Car{
 }
 
 class Truck{
+  private _type: string;
+  private _model: number;
+  public start: () => string;
+  public getProducerInfo: () => string;
+
   constructor(model){
     this._type = 'Truck';
     this._model = model;
@@ -43,8 +56,8 @@ class Truck{
 }
 
 const factory = new Factory('Mercedes');
-const vehicle1 = factory.produce('car');
-const vehicle2 = factory.produce('truck');
+const vehicle1 = factory.produce('car', 2019);
+const vehicle2 = factory.produce('truck', 2019);
 
 console.log(vehicle1.start());
 console.log(vehicle1.getProducerInfo());
