@@ -2,13 +2,13 @@
 // Proxy pattern
 
 const cache = [];
-function heavyNetworkRequest(fileName: string ){
+function heavyNetworkRequest(fileName: string){
   cache.push(fileName);
   return `Data of ${fileName}-from request!`;
 }
 
 const proxiedHeavyNetworkRequest = new Proxy(heavyNetworkRequest,{
-  apply: function(target , thisArgs , args){
+  apply(target , thisArgs , args){
     const fileName = args[0];
     if(cache.includes(fileName)){
       return `Data of ${fileName}-from cache!`
@@ -16,7 +16,7 @@ const proxiedHeavyNetworkRequest = new Proxy(heavyNetworkRequest,{
       return Reflect.apply(target , thisArgs , args);
     }
   }
-})
+});
 
-console.log(proxiedHeavyNetworkRequest('dogpic.jpg'))
-console.log(proxiedHeavyNetworkRequest('dogpic.jpg'))
+console.log(proxiedHeavyNetworkRequest('dogpic.jpg'));
+console.log(proxiedHeavyNetworkRequest('dogpic.jpg'));
