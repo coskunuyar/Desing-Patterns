@@ -1,28 +1,32 @@
-// Behaviroal Design Patterns
-// Strategy patttern
+// Behavioral Design Patterns
+// Strategy Pattern
+
+interface Player{
+  run: () => string;
+}
 
 class Commuter{
-  public play(player: Stoper | Forvet | GoalKeeper ): string{
+  public play(player: Player): string{
     return player.run();
   }
 }
 
 // Strategy 1
-class Stoper{
+class Stoper implements Player{
   public run(): string{
-    return `Running 5 km/s`;
+    return 'Running 5 km/s';
   }
 }
 
 // Strategy 2
-class Forvet{
+class Forvet implements Player{
   public run(): string{
     return `Running 12 km/s`;
   }
 }
 
 // Strategy 3
-class GoalKeeper{
+class GoalKeeper implements Player{
   public run(): string{
     return `Running 1 km/s`;
   }
