@@ -2,22 +2,26 @@
 // Facade pattern
 
 class PublicComplaintManager{
-    public register(type: string ,complaint: string): void{
-      if(type === 'product'){
-        const manager = new ProductComplaintManager();
-        manager.register(complaint);
-      }else if(type === 'service'){
-        const manager = new ServiceComplaintManager();
-        manager.register(complaint);
-      }
-    }
+  productManager: ProductComplaintManager;
+  serviceManager: ServiceComplaintManager;
 
-    public logs(): void{
-      const manager1 = new ProductComplaintManager();
-      manager1.logs();
-      const manager2 = new ServiceComplaintManager();
-      manager2.logs();
+  constructor(){
+    this.productManager = new ProductComplaintManager();
+    this.serviceManager = new ServiceComplaintManager();
+  }
+  
+  public register(type: string ,complaint: string): void{
+    if(type === 'product'){
+      this.productManager.register(complaint);
+    }else{
+      this.serviceManager.register(complaint);
     }
+  }
+
+  public logs():void{
+    this.productManager.logs();
+    this.serviceManager.logs();
+  }
 }
 
 interface Complaint{
@@ -28,45 +32,46 @@ interface Complaint{
 
 class ProductComplaintManager{
   private storage: Complaint[];
-  static instance: ProductComplaintManager;
-  
+  static instace: ProductComplaintManager;
+
   constructor(){
-    if(ProductComplaintManager.instance) return ProductComplaintManager.instance
-    this.storage = []
-    ProductComplaintManager.instance = this;
+    if(ProductComplaintManager.instace) return ProductComplaintManager.instace;
+    this.storage = [];
+    ProductComplaintManager.instace = this;
   }
 
-  register(complaint: string){
-    this.storage.push({ complaint , type: 'product' , complexity: true })
+  register(complaint: string): void{
+    this.storage.push({ complaint , type: 'product' , complexity: true });
   }
 
-  logs(){
+  logs(): void{
     this.storage.forEach(log => {
       console.log(log.complaint);
-    });
+    })
   }
 }
 
 class ServiceComplaintManager{
-  static instance: ServiceComplaintManager;
   private storage: Complaint[];
+  static instance: ServiceComplaintManager;
 
   constructor(){
-    if(ServiceComplaintManager.instance) return ServiceComplaintManager.instance
-    this.storage = []
+    if(ServiceComplaintManager.instance) return ServiceComplaintManager.instance;
+    this.storage = [];
     ServiceComplaintManager.instance = this;
   }
 
-  register(complaint){
-    this.storage.push({ complaint , type: 'product' })
+  register(complaint: string): void{
+    this.storage.push({ complaint , type: 'product' });
   }
 
-  logs(){
+  logs(): void{
     this.storage.forEach(log => {
       console.log(log.complaint);
-    });
+    })
   }
 }
+
 
 const complaintManager = new PublicComplaintManager;
 complaintManager.register('product','What a shitty product!');
