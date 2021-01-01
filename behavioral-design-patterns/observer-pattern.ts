@@ -1,5 +1,5 @@
-// Behaviroal Design Patterns
-// Oberserver patttern
+// Behavioral Design Patterns
+// Observer Pattern
 
 class Subject{
   private subscribers: Subscriber[];
@@ -10,22 +10,22 @@ class Subject{
     this.subscribers = [];
   }
 
-  public register(subscriber: Subscriber){
+  public register(subscriber: Subscriber): void{
     this.subscribers.push(subscriber);
   }
 
-  public unregister(subscriber: Subscriber){
+  public unregister(subscriber: Subscriber): void{
     this.subscribers = this.subscribers.filter(sbs => sbs !== subscriber);
   }
 
-  public fire(action: string){
+  public fire(action: string): void{
     this.subscribers.forEach(observer => observer.fire(action));
   }
 }
 
 class Subscriber{
   public fire(action: string): string{
-    return `${action} is dispatched!`
+    return `${action} is dispatched!`;
   }
 }
 
