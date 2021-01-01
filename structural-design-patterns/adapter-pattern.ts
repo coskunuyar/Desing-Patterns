@@ -5,43 +5,42 @@ class OldCalc{
   public operation(value1: number , value2: number , operation: string): number{
     if(operation === 'add'){
       return value1 + value2;
-    }else if(operation === 'subtract'){
+    }else if(operation === 'substract'){
       return value1 - value2;
     }
   }
 }
 
-// a beauftiful class with clean architecture
 class NewCalc{
-  history: { type: string , result: number }[];
+  history: { type:string , result: number}[];
   constructor(){
     this.history = [];
   }
 
   public add(value1: number , value2: number): number{
     const result = value1 + value2;
-    this.history.push({ type: 'add' , result })
+    this.history.push({ type: 'add' , result });
     return result;
   }
 
-  public subtract(value1: number , value2: number): number{
+  public substract(value1: number , value2: number): number{
     const result = value1 - value2;
-    this.history.push({ type: 'subtract' , result })
+    this.history.push({ type: 'subtract' , result });
     return result;
   }
 }
 
-class AdapterClass{
-  public operation(value1:number , value2: number , operation: string): number{
+class Adapter{
+  public operation(value1: number , value2: number , operation: string): number{
     const newCalc = new NewCalc();
     if(operation === 'add'){
-      return newCalc.add(value1,value2)
-    }else if(operation === 'subtract'){
-      return newCalc.subtract(value1,value2);
+      return newCalc.add(value1,value2);
+    }else{
+      return newCalc.substract(value1,value2);
     }
   }
 }
 
-const calculatorSample = new AdapterClass();
+const calculatorSample = new Adapter();
 console.log(calculatorSample.operation(10,5,'add'));
 console.log(calculatorSample.operation(10,5,'subtract'));
