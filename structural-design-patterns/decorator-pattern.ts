@@ -8,7 +8,7 @@ class RallyCar{
   public isUpgraded: boolean;
   public turbo: () => string;
 
-  constructor(brand , model){
+  constructor(brand: string , model: string){
     this._brand = brand;
     this._model = model;
     this._start = false;
@@ -25,13 +25,13 @@ class RallyCar{
   }
 }
 
-function turboDecorator(car: RallyCar){
+function turboDecorator(car: RallyCar): RallyCar{
   car.isUpgraded = true;
   car.turbo = function(){
     const started = this.start();
     return `${started} ${this._brand}-${this._model} works with turbo!`;
   }
-  return car;
+  return  car;
 }
 
 const bmw = turboDecorator(new RallyCar('bmw','sedan'));
