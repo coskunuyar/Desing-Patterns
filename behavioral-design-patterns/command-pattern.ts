@@ -1,16 +1,16 @@
-// Behaviroal Design Patterns
-// Command patttern
+// Behavioral Design Patterns
+// Command Pattern
 
 class Command{
-  public commandsExecuted: string[]
-  private obj: object
+  public commandsExecuted: string[];
+  private obj: Object;
 
   constructor(obj: object){
     this.commandsExecuted = [];
-    this.obj = obj;
+    this.obj = obj;;
   }
 
-  public execute(command: string){
+  public execute(command: string): any{
     this.commandsExecuted.push(command);
     return this.obj[command]();
   }
@@ -18,26 +18,28 @@ class Command{
 
 class OptimusPrime{
   private mode: 'Truck' | 'Robot';
+  private active: boolean;
 
   constructor(){
     this.mode = 'Truck';
+    this.active = false;
   }
 
   public changeMode(): void{
-    this.mode = this.mode === 'Robot' ? 'Truck' : 'Robot';
+    this.mode = this.mode === 'Robot' ? 'Truck':'Robot';
+    this.active = this.mode === 'Robot'
   }
 
   public shoot(): string{
-    if(this.mode = 'Robot') return 'Shoot!';
+    if(this.active) return 'Shoot!';
     return 'Change Mode! :(';
   }
 
   public defend(): string{
-    if(this.mode = 'Robot') return 'Defend!';
+    if(this.active) return 'Defend!';
     return 'Change Mode! :(';
   }
 }
-
 
 const commander = new Command(new OptimusPrime());
 
