@@ -1,23 +1,28 @@
-// Behaviroal Design Patterns
-// Chain of responsibility patttern
+// Behavioral Design Patterns
+// Chain of responsibility pattern
 
 class Calculator{
   public value: number;
 
-  constructor(value = 10){
+  constructor(value = 0){
     this.value = value;
-  } 
+  }
 
-  public add(value: number): Calculator {
+  public add(value: number): Calculator{
     this.value += value;
     return this;
   }
 
-  public substract(value: number): Calculator{
+  public subtract(value: number): Calculator{
     this.value -= value;
+    return this;
+  }
+
+  public multiply(value: number): Calculator{
+    this.value *= value;
     return this;
   }
 }
 
-const calc = new Calculator(5);
-console.log(calc.add(10).add(10).substract(1).value);
+const calc = new Calculator();
+console.log(calc.add(10).add(10).subtract(1).multiply(2).value);
