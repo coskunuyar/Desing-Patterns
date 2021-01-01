@@ -1,4 +1,4 @@
-// Creational Patterns
+// Creational Design Patterns
 // Constructor Pattern
 
 class Hero{
